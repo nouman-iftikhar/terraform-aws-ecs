@@ -47,19 +47,19 @@ resource "aws_autoscaling_group" "ecs" {
   }
 }
 
-resource "aws_ecs_capacity_provider" "ecs_capacity_provider" {
-  count = var.fargate_only ? 0 : 1
-  name  = "${var.name}-capacity-provider"
+# resource "aws_ecs_capacity_provider" "ecs_capacity_provider" {
+#   count = var.fargate_only ? 0 : 1
+#   name  = "${var.name}-capacity-provider"
 
-  auto_scaling_group_provider {
-    auto_scaling_group_arn         = aws_autoscaling_group.ecs[0].arn
-    managed_termination_protection = "DISABLED"
+#   auto_scaling_group_provider {
+#     auto_scaling_group_arn         = aws_autoscaling_group.ecs[0].arn
+#     managed_termination_protection = "DISABLED"
 
-    managed_scaling {
-      maximum_scaling_step_size = 10
-      minimum_scaling_step_size = 1
-      status                    = "ENABLED"
-      target_capacity           = var.asg_target_capacity
-    }
-  }
-}
+#     managed_scaling {
+#       maximum_scaling_step_size = 10
+#       minimum_scaling_step_size = 1
+#       status                    = "ENABLED"
+#       target_capacity           = var.asg_target_capacity
+#     }
+#   }
+# }
